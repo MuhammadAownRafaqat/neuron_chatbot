@@ -21,7 +21,8 @@
 #     print("Bot: ...")
 
 # Starting values (deliberately low so it has to learn)
-weight = 0.1
+w_hello = 0.6
+w_bye = 0.8
 bias = -0.2
 learning_rate = 0.1
 target = 1 # We want the bot to say "Hi!" when input is 1
@@ -32,13 +33,15 @@ for epoch in range(10):
     user_input = 1 # Simulating the user saying "hello"
 
     # 1. Guess
-    score = (user_input * weight) + bias
+    score1 = (user_input * w_bye) + bias
+    score2 = (user_input * w_hello) + bias
     prediction = 1 if score > 0 else 0
 
     # 2. Calculate Error
     error = target - prediction
 
     # 3. Adjust weight
-    weight = weight + (user_input * error * learning_rate)
+    w_hello = w_hello + (user_input * error * learning_rate)
+    w_bye = w_bye + (user_input * error * learning_rate)
 
-    print(f"Epoch {epoch+1}: Weight is now {weight: .2f}, Score: {score: .2f}")
+    print(f"Epoch {epoch+1}: w_hello is now {w_hello: .2f}, w_bye is now {w_bye: .2f}, Score1 is: {score1: .2f}, Score2 is: {score2: .2f}")
